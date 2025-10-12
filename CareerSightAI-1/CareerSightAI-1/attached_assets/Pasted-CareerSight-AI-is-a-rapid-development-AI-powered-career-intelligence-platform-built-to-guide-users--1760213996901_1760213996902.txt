@@ -1,0 +1,221 @@
+CareerSight AI is a rapid-development, AI-powered career intelligence platform built to guide users from profile creation through personalized job recommendations, learning roadmaps, and market insights—all in under six hours. Leveraging Google Gemini’s advanced generative AI, it transforms raw job-market data into actionable career strategies.
+
+At its core, CareerSight AI ingests real-time job postings (e.g., Naukri.com’s November 2024 dataset), normalizes key fields (titles, companies, locations, salary, experience, skills), and builds a semantic skill-job matrix via TF-IDF and cosine similarity. Users begin by entering their skills, experience level, interests, and location preferences. The system then:
+
+Intelligent Career Matching
+
+Scores and ranks jobs based on deep semantic matching of user skills to job requirements.
+
+Applies location, salary, and experience filters to refine suggestions.
+
+Personalized Learning Roadmaps
+
+Detects each user’s skill gaps and, using Google Gemini, auto-generates a detailed three-month roadmap with weekly milestones, curated resources, and project suggestions.
+
+Skills Gap Analysis
+
+Compares user skills against market requirements, prioritizes missing competencies, and highlights the highest-impact skills to learn.
+
+Real-Time Market Intelligence
+
+Continuously analyzes job posting trends to surface in-demand skills, top hiring companies, salary benchmarks, and geographic hot spots.
+
+Generates visual dashboards—bar charts for top skills, pie charts for locations, line graphs for salary trends—to make insights digestible.
+
+Interactive AI Guidance
+
+Provides conversational career coaching (interview tips, resume advice, networking strategies) through Gemini’s natural language interface.
+
+Built on an IBM LinuxONE instance with Jupyter Lab and Streamlit, CareerSight AI emphasizes modular, cache-optimized components for sub-500 ms response times. Its mobile-responsive design and accessible web interface ensure broad usability. Risk mitigation includes mock data fallbacks, pre-captured screenshots, and video backups for seamless demos.
+
+Within six hours, the platform delivers a polished, end-to-end experience: from entering a few profile details to exploring tailored job matches, following a dynamic learning plan, and understanding real-world market dynamics—all powered by Google Gemini’s multimodal AI capabilities.
+
+The CareerSight AI website will include the following key features:
+
+User Profile Setup
+– Skill input (comma-separated)
+– Experience, location, interests, and salary preference fields
+– Secure profile storage and retrieval
+
+Intelligent Job Recommendations
+– Real‐time matching against Naukri.com’s November 2024 dataset
+– Compatibility scores (%) with explanations
+– Filters for location, salary range, experience level, and company
+
+Personalized Learning Roadmap
+– AI-generated 3-month, week-by-week development plans
+– Curated resource links (courses, tutorials, books)
+– Project milestones and success checkpoints
+
+Skills Gap Analysis
+– Automated comparison of user skills vs. market requirements
+– Ranked list of missing competencies
+– Priority recommendations for highest-impact skills
+
+Market Insights Dashboard
+– Top hiring companies and job locations (bar/pie charts)
+– Most in-demand skills (interactive chart)
+– Average salary trends by role and region (line graph)
+
+Conversational AI Assistant
+– Natural-language Q&A for career advice
+– Interview tips, resume feedback, networking strategies
+– On-demand coaching via Google Gemini
+
+Interactive Data Visualizations
+– Responsive, professional charts with IBM branding
+– Hover and click interactions for deeper drill-down
+
+Mobile-Responsive Design
+– Adaptive layout for smartphones and tablets
+– Sidebar navigation for quick access to all modules
+
+Performance & Scalability
+– Sub-500 ms response times via caching
+– Concurrent user support on IBM LinuxONE
+– One-click deploy (Streamlit launch script)
+
+Accessibility & Social Impact
+– Keyboard-navigable, screen-reader-friendly UI
+– Free access for underserved users
+– Democratized career guidance for all
+
+Demo & Backup Tools
+– “Try a sample profile” quick-start link
+– Preloaded demo data with screenshots and video fallback
+– Offline mock API mode for reliable presentations
+
+Hour 0–0.5: Environment & Credentials Setup
+Provision LinuxONE Instance (5 min)
+
+Verify SSH or web console access.
+
+Confirm Jupyter Lab is running.
+
+Install Core Dependencies (10 min)
+
+Run %pip install kaggle google-generativeai pandas numpy scikit-learn opendatasets streamlit
+
+Validate imports in a quick Python cell.
+
+Configure Kaggle & Gemini Credentials (15 min)
+
+Upload kaggle.json via Jupyter file browser; move to ~/.kaggle/kaggle.json and chmod 600.
+
+In notebook, run:
+
+python
+import google.generativeai as genai  
+genai.configure(api_key="YOUR_GOOGLE_GEMINI_KEY")  
+Test a simple Gemini prompt to confirm connectivity.
+
+Hour 0.5–1.5: Data Acquisition & Preprocessing
+Download Naukri Dataset (15 min)
+
+Use Kaggle API or opendatasets to fetch promptcloud/naukri-jobs-listing-1st-30th-nov-2024.
+
+Unzip into data/.
+
+Initial Data Exploration (15 min)
+
+Load CSV/LDJSON into pandas; inspect columns, sample rows.
+
+Print schema and null counts.
+
+Preprocessing Functions (30 min)
+
+Write parsers for salary, experience, skills extraction.
+
+Normalize columns: job_title, company, location, salary_min/max, exp_min/max, skills_list, posted_date.
+
+Apply transformations and cache cleaned DataFrame.
+
+Hour 1.5–3.0: Core Recommendation Engine
+TF-IDF + Cosine Similarity Module (30 min)
+
+Vectorize skills_list; build job skill matrix.
+
+Create function get_recommendations(user_skills, interests, top_n) that returns top jobs with scores.
+
+Test with sample skill sets.
+
+Gemini-Powered Roadmap Generator (30 min)
+
+Implement generate_learning_roadmap(role, user_skills, missing_skills) using Gemini’s model.generate_content().
+
+Craft a concise prompt template for 3-month roadmap.
+
+Test with one example and refine prompt for clarity.
+
+Skill Gap Analysis (15 min)
+
+Compare user_skills vs. required skills; compute missing skills and priority list.
+
+Return top 10 skills sorted by frequency across recommendations.
+
+Market Insights Module (15 min)
+
+Compute top companies, locations, in-demand skills, average salaries.
+
+Bundle into a dictionary for dashboard use.
+
+Hour 3.0–4.0: Interactive Notebook & Streamlit App
+Jupyter Notebook Interface (30 min)
+
+Organize cells: setup, data load, recommendation, roadmap, analysis, insights.
+
+Add clear markdown headings and “Run this cell” instructions.
+
+Validate end-to-end flow with a demo profile.
+
+Streamlit Front-End Prototype (30 min)
+
+Scaffold app.py with sections: Profile input, Recommendations, Roadmap, Insights.
+
+Use st.form for profile, st.table/st.metric for outputs.
+
+Add basic CSS via st.markdown for IBM blue gradients.
+
+Launch with streamlit run app.py and verify UI on public IP.
+
+Hour 4.0–5.0: Visual Design & Performance
+Professional Charts (20 min)
+
+Use Plotly or Streamlit chart components: bar chart for top skills, pie for locations, line for salary trends.
+
+Add interactive filters for date range or location.
+
+Performance Optimization (20 min)
+
+Cache data-loading and heavy functions with @st.cache_data.
+
+Verify sub-500 ms response on sample profile.
+
+Mobile Responsiveness (20 min)
+
+Preview on different widths; use Streamlit layout columns and st.sidebar.
+
+Ensure charts and forms adapt gracefully.
+
+Hour 5.0–6.0: Demo Preparation & Backup Plans
+Demo Script & Timing (20 min)
+
+Write a 5-minute narrative: Profile setup → Recommendations → Roadmap → Insights → Q&A.
+
+Time each step on demo data.
+
+Backup Assets (20 min)
+
+Take screenshots of each feature.
+
+Export a short screencast video of full flow.
+
+Prepare mock JSON responses for offline demo fallback.
+
+Final Review & Practice (20 min)
+
+Run through full demo twice.
+
+Check LinuxONE access, public URL, and API keys.
+
+Document plugin or alternative launch command
