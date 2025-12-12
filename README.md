@@ -99,7 +99,7 @@ MIT License
 
 ## Contacts & Credits
 
-- Project Lead: Abishek
+- Project Lead: Sowrav
 - AI/Backend: Google Gemini, Flask, Scikit-learn
 - UI/UX: Jinja2, HTML, CSS (custom, no frameworks)
 - Data Source: Real/simulated Naukri.com jobs
